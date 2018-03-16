@@ -44,6 +44,7 @@
 
 #include <math.h>
 #include <iostream>
+#include "calculthread.h"
 
 RenderThread::RenderThread(QObject *parent)
     : QThread(parent)
@@ -113,9 +114,13 @@ void RenderThread::run()
          *  int pass
          *  const int NumPasses
          *  const int Limit
+         *  const int MaxIterations
          *  double centerX
          *  double centerY
-         *
+         *  double scaleFactor
+         *  double halfHeight
+         *  double halfWidth
+         *  QImage
          */
         const int NumPasses = 8;
         int pass = 0;
@@ -124,47 +129,12 @@ void RenderThread::run()
 
             QTime startTime = QTime::currentTime();
 
+            //radius^2
             const int Limit = 4;
 
-            //START THREAD LOGIC
-            for (int y = -halfHeight; y < halfHeight; ++y) {
-                if (restart)
-                    break;
-                if (abort)
-                    return;
-
-                QRgb *scanLine =
-                        reinterpret_cast<QRgb *>(image.scanLine(y + halfHeight));
-                double ay = centerY + (y * scaleFactor);
-
-                for (int x = -halfWidth; x < halfWidth; ++x) {
-                    double ax = centerX + (x * scaleFactor);
-                    double a1 = ax;
-                    double b1 = ay;
-                    int numIterations = 0;
-
-                    do {
-                        ++numIterations;
-                        double a2 = (a1 * a1) - (b1 * b1) + ax;
-                        double b2 = (2 * a1 * b1) + ay;
-                        if ((a2 * a2) + (b2 * b2) > Limit)
-                            break;
-
-                        ++numIterations;
-                        a1 = (a2 * a2) - (b2 * b2) + ax;
-                        b1 = (2 * a2 * b2) + ay;
-                        if ((a1 * a1) + (b1 * b1) > Limit)
-                            break;
-                    } while (numIterations < MaxIterations);
-
-                    if (numIterations < MaxIterations) {
-                        *scanLine++ = colormap[numIterations % ColormapSize];
-                    } else {
-                        *scanLine++ = qRgb(0, 0, 0);
-                    }
-                }
-            }
-
+//CREATE N calculthreads
+            calculthread cThread(restart, abort, pass, NumPasses, Limit, MaxIterations,
+                                 centerX, centerY, halfHeight, halfWidth, scaleFactor, image);
 
             QTime endTime = QTime::currentTime();
             std::cout << "Time for pass " << pass << " (in ms) : " << startTime.msecsTo(endTime) << std::endl;

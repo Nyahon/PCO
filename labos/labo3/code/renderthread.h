@@ -79,8 +79,11 @@ private:
     bool restart;
     bool abort;
 
-    enum { ColormapSize = 512 };
+    friend class calculthread;
+
+    enum  { ColormapSize = 512 };
     uint colormap[ColormapSize];
+
 };
 //! [0]
 
