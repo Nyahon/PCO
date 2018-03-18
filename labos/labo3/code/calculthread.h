@@ -6,8 +6,8 @@
 #include <QImage>
 #include <QThread>
 #include "renderthread.h"
-
-#define ColormapSize RenderThread::ColormapSize
+//Test
+#define ColormapSize 512 // RenderThread::ColormapSize
 class calculthread : public QThread
 {
 public:
@@ -15,9 +15,11 @@ public:
                  int pass, const int NumPasses, const int Limit, const int MaxIterations,
                  double centerX, double centerY,
                  double halfHeight, double halfWidth, double scaleFactor,
-                 QImage& image);
-protected:
-    void run() Q_DECL_OVERRIDE;
+                 uint* colormap, QImage &image);
+
+
+public:
+    void run();
 
 private:
     bool restart;
@@ -27,6 +29,7 @@ private:
     double centerX, centerY,
             halfHeight, halfWidth,
             scaleFactor;
-    QImage image;
+    uint* colormap;
+    QImage &image;
 };
 #endif // CALCULTHREAD_H

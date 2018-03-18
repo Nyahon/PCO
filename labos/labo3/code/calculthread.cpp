@@ -18,15 +18,16 @@ using namespace std;
  */
 calculthread::calculthread(bool restart, bool abort,
                            int pass, const int NumPasses, const int Limit, const int MaxIterations,
-                           double centerX, double centerY, double halfWidth, double halfHeight, double scaleFactor,
-                           QImage& image) :
+                           double centerX, double centerY, double halfHeight, double halfWidth, double scaleFactor,
+                           uint* colormap, QImage& image) :
 
                            restart(restart), abort(abort),
                            pass(pass), NumPasses(NumPasses), Limit(Limit), MaxIterations(MaxIterations),
-                           centerX(centerX), centerY(centerY), halfWidth(halfWidth), halfHeight(halfHeight), scaleFactor(scaleFactor),
-                           image(image){
+                           centerX(centerX), centerY(centerY),  halfHeight(halfHeight), halfWidth(halfWidth), scaleFactor(scaleFactor),
+                           colormap(colormap), image(image){
 
 }
+
 
 void calculthread::run(){
 
@@ -62,13 +63,13 @@ void calculthread::run(){
             } while (numIterations < MaxIterations);
 
             if (numIterations < MaxIterations) {
-                *scanLine++ = RenderThread::colormap[numIterations % ColormapSize];
+                *scanLine++ = colormap[numIterations % ColormapSize];
             } else {
                 *scanLine++ = qRgb(0, 0, 0);
             }
         }
     }
-
+    return;
 
 }
 

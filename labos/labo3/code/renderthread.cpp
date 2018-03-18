@@ -45,6 +45,9 @@
 #include <math.h>
 #include <iostream>
 #include "calculthread.h"
+#include <list>
+
+using namespace std;
 
 RenderThread::RenderThread(QObject *parent)
     : QThread(parent)
@@ -104,7 +107,9 @@ void RenderThread::run()
 
         int halfWidth = resultSize.width() / 2;
         int halfHeight = resultSize.height() / 2;
-        QImage image(resultSize, QImage::Format_RGB32);
+
+        //if problem: try putting this here or in while loop below
+        //QImage image(resultSize, QImage::Format_RGB32);
 
         /*
          * Render logic (T_Ni)
@@ -125,6 +130,8 @@ void RenderThread::run()
         const int NumPasses = 8;
         int pass = 0;
         while (pass < NumPasses) {
+            QImage image(resultSize, QImage::Format_RGB32);
+
             const int MaxIterations = (1 << (2 * pass + 6)) + 32;
 
             QTime startTime = QTime::currentTime();
@@ -133,9 +140,32 @@ void RenderThread::run()
             const int Limit = 4;
 
 //CREATE N calculthreads
-            calculthread cThread(restart, abort, pass, NumPasses, Limit, MaxIterations,
-                                 centerX, centerY, halfHeight, halfWidth, scaleFactor, image);
 
+            double centersX[] ={centerX/2,centerX*3/2};
+            double centersY[] ={centerY/2,centerY*3/2};
+            std::list<calculthread*> cThread;
+
+            /*
+            calculthread* th = new calculthread(restart, abort, pass, NumPasses, Limit, MaxIterations,
+                                           centerX, centerY, halfHeight, halfWidth, scaleFactor, colormap, image );
+
+            th->start();
+            th->wait();
+            */
+            for(int i = 0;i<4;i++){
+                calculthread* th = new calculthread(restart, abort, pass, NumPasses, Limit, MaxIterations,
+                                               centersX[i%2], centersY[i < 2 ? 0 : 1], halfHeight, halfWidth, scaleFactor, colormap, image );
+
+                cThread.push_front( th );
+                cThread.front()->start();
+
+}
+            for(int i = 0;i<4;i++){
+                cThread.front()->wait();
+              //  cThread.pop_front();
+            }
+
+           // System.out.println("COUCOU");
             QTime endTime = QTime::currentTime();
             std::cout << "Time for pass " << pass << " (in ms) : " << startTime.msecsTo(endTime) << std::endl;
 
