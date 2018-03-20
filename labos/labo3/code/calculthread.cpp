@@ -16,7 +16,7 @@ using namespace std;
  *  double halfWidth
  *  QImage
  */
-calculthread::calculthread(bool restart, bool abort,
+calculthread::calculthread(bool *restart, bool *abort,
                            int pass, const int NumPasses, const int Limit, const int MaxIterations,
                            double centerX, double centerY, double halfHeight, double halfWidth, double scaleFactor,
                            uint* colormap, QImage& image) :
@@ -33,9 +33,9 @@ void calculthread::run(){
 
     //START THREAD LOGIC
     for (int y = -halfHeight; y < halfHeight; ++y) {
-        if (restart)
+        if (*restart)
             break;
-        if (abort)
+        if (*abort)
             return;
 
         QRgb *scanLine =

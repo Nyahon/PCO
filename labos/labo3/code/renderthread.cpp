@@ -153,7 +153,7 @@ void RenderThread::run()
             th->wait();
             */
             for(int i = 0;i<4;i++){
-                calculthread* th = new calculthread(restart, abort, pass, NumPasses, Limit, MaxIterations,
+                calculthread* th = new calculthread(&restart, &abort, pass, NumPasses, Limit, MaxIterations,
                                                centersX[i%2], centersY[i < 2 ? 0 : 1], halfHeight, halfWidth, scaleFactor, colormap, image );
 
                 cThread.push_front( th );
@@ -161,8 +161,8 @@ void RenderThread::run()
 
 }
             for(int i = 0;i<4;i++){
-                cThread.front()->wait();
-              //  cThread.pop_front();
+                cThread.back()->wait();
+                cThread.pop_back();
             }
 
            // System.out.println("COUCOU");
