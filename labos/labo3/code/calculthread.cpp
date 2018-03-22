@@ -17,12 +17,12 @@ using namespace std;
  *  QImage
  */
 calculthread::calculthread(bool *restart, bool *abort,
-                           int pass, const int NumPasses, const int Limit, const int MaxIterations, const int pos,
+                           int pass, const int NumPasses, const int Limit, const int MaxIterations, const int pos, const int coresNumber,
                            double centerX, double centerY, double halfHeight, double halfWidth, double scaleFactor,
                            uint* colormap, QImage& image) :
 
                            restart(restart), abort(abort),
-                           pass(pass), NumPasses(NumPasses), Limit(Limit), MaxIterations(MaxIterations), pos(pos),
+                           pass(pass), NumPasses(NumPasses), Limit(Limit), MaxIterations(MaxIterations), pos(pos), coresNumber(coresNumber),
                            centerX(centerX), centerY(centerY),  halfHeight(halfHeight), halfWidth(halfWidth), scaleFactor(scaleFactor),
                            colormap(colormap), image(image){
 
@@ -30,9 +30,9 @@ calculthread::calculthread(bool *restart, bool *abort,
 
 
 void calculthread::run(){
-     std::cout << "pos: " << pos << std::endl;
+     //std::cout << "pos: " << pos << std::endl;
     //START THREAD LOGIC
-    for (int y = -halfHeight +pos; y < halfHeight  ; y=y+4) {
+    for (int y = -halfHeight +pos; y < halfHeight  ; y=y+coresNumber) {
         if (*restart)
             break;
         if (*abort)

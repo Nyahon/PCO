@@ -12,7 +12,7 @@ class calculthread : public QThread
 {
 public:
     calculthread(bool *restart, bool *abort,
-                 int pass, const int NumPasses, const int Limit, const int MaxIterations, const int pos,
+                 int pass, const int NumPasses, const int Limit, const int MaxIterations, const int pos, const int coresNumber,
                  double centerX, double centerY,
                  double halfHeight, double halfWidth, double scaleFactor,
                  uint* colormap, QImage &image);
@@ -28,7 +28,8 @@ private:
     const int NumPasses, Limit, MaxIterations, pos;
     double centerX, centerY,
             halfHeight, halfWidth,
-            scaleFactor;
+            scaleFactor,
+            coresNumber;
     uint* colormap;
     QImage &image;
 };

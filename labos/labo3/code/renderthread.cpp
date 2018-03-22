@@ -96,7 +96,9 @@ void RenderThread::render(double centerX, double centerY, double scaleFactor,
  */
 void RenderThread::run()
 {
+    int coresNumber = QThread::idealThreadCount();
     std::cout << "CORES: " << QThread::idealThreadCount() << std::endl;
+
     forever {
         mutex.lock();
         QSize resultSize = this->resultSize;
@@ -156,17 +158,17 @@ void RenderThread::run()
             th->wait();
             */
 
-            std::cout << resultSize.width() << " : " << resultSize.height() << std::endl;
-            for(int i = 0;i<4;i++){
-                std::cout << "y: " << centerY +i*halfHeight*2  << " height: " << halfHeight << std::endl;
-                calculthread* th = new calculthread(&restart, &abort, pass, NumPasses, Limit, MaxIterations, i,
+            //std::cout << resultSize.width() << " : " << resultSize.height() << std::endl;
+            for(int i = 0;i<coresNumber;i++){
+                //std::cout << "y: " << centerY +i*halfHeight*2  << " height: " << halfHeight << std::endl;
+                calculthread* th = new calculthread(&restart, &abort, pass, NumPasses, Limit, MaxIterations, i, coresNumber,
                                                centerX, centerY, halfHeight, halfWidth, scaleFactor, colormap, image );
 
                 cThread.push_front( th );
                 cThread.front()->start();
 
 }
-            for(int i = 0;i<4;i++){
+            for(int i = 0;i<coresNumber;i++){
                 cThread.back()->wait();
                 delete(cThread.back());
                 cThread.pop_back();
