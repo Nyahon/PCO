@@ -39,9 +39,9 @@ void calculthread::run(){
             return;
 
         QRgb *scanLine =
-                reinterpret_cast<QRgb *>(image.scanLine(y + halfHeight));
-        double ay = centerY + (y * scaleFactor);
-
+                reinterpret_cast<QRgb *>(image.scanLine( y + (centerY + halfHeight*4 ) ) );
+        double ay =  ( y * scaleFactor); //-centerY almost work
+       // ay = ay - centerX;
         for (int x = -halfWidth; x < halfWidth; ++x) {
             double ax = centerX + (x * scaleFactor);
             double a1 = ax;
