@@ -168,6 +168,7 @@ void RenderThread::run()
 }
             for(int i = 0;i<4;i++){
                 cThread.back()->wait();
+                delete(cThread.back());
                 cThread.pop_back();
             }
 

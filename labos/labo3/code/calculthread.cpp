@@ -32,14 +32,14 @@ calculthread::calculthread(bool *restart, bool *abort,
 void calculthread::run(){
 
     //START THREAD LOGIC
-    for (int y = -halfHeight; y < halfHeight; ++y) {
+    for (int y = centerY -halfHeight; y < centerY + halfHeight; ++y) {
         if (*restart)
             break;
         if (*abort)
             return;
 
         QRgb *scanLine =
-                reinterpret_cast<QRgb *>(image.scanLine( y + (centerY + halfHeight*4 ) ) );
+                reinterpret_cast<QRgb *>(image.scanLine( y + ( halfHeight*4 ) ) );
         double ay =  ( y * scaleFactor); //-centerY almost work
        // ay = ay - centerX;
         for (int x = -halfWidth; x < halfWidth; ++x) {
