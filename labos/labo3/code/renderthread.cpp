@@ -129,8 +129,8 @@ void RenderThread::run()
          */
         const int NumPasses = 8;
         int pass = 0;
-        halfHeight = halfHeight/4;
-        centerY = centerY-3*halfHeight;
+  //      halfHeight = halfHeight/4;
+    //    centerY = centerY-3*halfHeight;
 
         while (pass < NumPasses) {
             QImage image(resultSize, QImage::Format_RGB32);
@@ -159,8 +159,8 @@ void RenderThread::run()
             std::cout << resultSize.width() << " : " << resultSize.height() << std::endl;
             for(int i = 0;i<4;i++){
                 std::cout << "y: " << centerY +i*halfHeight*2  << " height: " << halfHeight << std::endl;
-                calculthread* th = new calculthread(&restart, &abort, pass, NumPasses, Limit, MaxIterations,
-                                               centerX, centerY + i*halfHeight*2, halfHeight, halfWidth, scaleFactor, colormap, image );
+                calculthread* th = new calculthread(&restart, &abort, pass, NumPasses, Limit, MaxIterations, i,
+                                               centerX, centerY, halfHeight, halfWidth, scaleFactor, colormap, image );
 
                 cThread.push_front( th );
                 cThread.front()->start();

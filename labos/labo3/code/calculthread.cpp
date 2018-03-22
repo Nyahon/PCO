@@ -17,12 +17,12 @@ using namespace std;
  *  QImage
  */
 calculthread::calculthread(bool *restart, bool *abort,
-                           int pass, const int NumPasses, const int Limit, const int MaxIterations,
+                           int pass, const int NumPasses, const int Limit, const int MaxIterations, const int pos,
                            double centerX, double centerY, double halfHeight, double halfWidth, double scaleFactor,
                            uint* colormap, QImage& image) :
 
                            restart(restart), abort(abort),
-                           pass(pass), NumPasses(NumPasses), Limit(Limit), MaxIterations(MaxIterations),
+                           pass(pass), NumPasses(NumPasses), Limit(Limit), MaxIterations(MaxIterations), pos(pos),
                            centerX(centerX), centerY(centerY),  halfHeight(halfHeight), halfWidth(halfWidth), scaleFactor(scaleFactor),
                            colormap(colormap), image(image){
 
@@ -30,17 +30,17 @@ calculthread::calculthread(bool *restart, bool *abort,
 
 
 void calculthread::run(){
-
+     std::cout << "pos: " << pos << std::endl;
     //START THREAD LOGIC
-    for (int y = centerY -halfHeight; y < centerY + halfHeight; ++y) {
+    for (int y = -halfHeight +pos; y < halfHeight  ; y=y+4) {
         if (*restart)
             break;
         if (*abort)
             return;
 
         QRgb *scanLine =
-                reinterpret_cast<QRgb *>(image.scanLine( y + ( halfHeight*4 ) ) );
-        double ay =  ( y * scaleFactor); //-centerY almost work
+                reinterpret_cast<QRgb *>(image.scanLine( y + halfHeight ));
+        double ay =  centerY + ( y * scaleFactor) ; //-centerY almost work
        // ay = ay - centerX;
         for (int x = -halfWidth; x < halfWidth; ++x) {
             double ax = centerX + (x * scaleFactor);
