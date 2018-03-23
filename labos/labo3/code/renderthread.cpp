@@ -86,53 +86,29 @@ void RenderThread::render(double centerX, double centerY, double scaleFactor,
         condition.wakeOne();
     }
 }
-/*
- * 1. Séparer la logique de dessin en N coeurs (4 pour l'instant)
- *  -> Séparation des zones
- *  -> Calculs
- *  -> Retour au thread boss
- *  -> Afficher l'image
- * 2. Rendre les threads capables d'arrêter le dessin si bouge dans l'image
- */
+
 void RenderThread::run()
 {
+    // Initializing number of cores to know how much threads we'll create
     int coresNumber = QThread::idealThreadCount();
     std::cout << "CORES: " << QThread::idealThreadCount() << std::endl;
 
     forever {
         mutex.lock();
+        // Initilizating of size, scale and center of the image
         QSize resultSize = this->resultSize;
         double scaleFactor = this->scaleFactor;
         double centerX = this->centerX;
         double centerY = this->centerY;
         mutex.unlock();
 
+        // Initilazing halfsize in order to get actual coordinates later
         int halfWidth = resultSize.width() / 2;
         int halfHeight = resultSize.height() / 2;
 
-        //if problem: try putting this here or in while loop below
-        //QImage image(resultSize, QImage::Format_RGB32);
-
-        /*
-         * Render logic (T_Ni)
-         * Need:
-         *  bool restart
-         *  bool abort
-         *  int pass
-         *  const int NumPasses
-         *  const int Limit
-         *  const int MaxIterations
-         *  double centerX
-         *  double centerY
-         *  double scaleFactor
-         *  double halfHeight
-         *  double halfWidth
-         *  QImage
-         */
+        // Number of passes (to caculate Mandelbort curve
         const int NumPasses = 8;
         int pass = 0;
-  //      halfHeight = halfHeight/4;
-    //    centerY = centerY-3*halfHeight;
 
         while (pass < NumPasses) {
             QImage image(resultSize, QImage::Format_RGB32);
@@ -141,40 +117,34 @@ void RenderThread::run()
 
             QTime startTime = QTime::currentTime();
 
-            //radius^2
             const int Limit = 4;
 
-//CREATE N calculthreads
-
-           // double centersX[] ={centerX/2,centerX*3/2};
-          //  double centersY[] ={centerY/2,centerY*3/2};
+            // List that will contain our threads
             std::list<calculthread*> cThread;
 
-            /*
-            calculthread* th = new calculthread(restart, abort, pass, NumPasses, Limit, MaxIterations,
-                                           centerX, centerY, halfHeight, halfWidth, scaleFactor, colormap, image );
-
-            th->start();
-            th->wait();
-            */
-
-            //std::cout << resultSize.width() << " : " << resultSize.height() << std::endl;
+            // Iteration on the number of threads
             for(int i = 0;i<coresNumber;i++){
-                //std::cout << "y: " << centerY +i*halfHeight*2  << " height: " << halfHeight << std::endl;
+                // Creating a thread and giving all the needed arguments
                 calculthread* th = new calculthread(&restart, &abort, pass, NumPasses, Limit, MaxIterations, i, coresNumber,
                                                centerX, centerY, halfHeight, halfWidth, scaleFactor, colormap, image );
-
+                // Insertion of the thread in the list
                 cThread.push_front( th );
+                // Running it
                 cThread.front()->start();
 
-}
+            }
+
+            // Iteration on the number of threads
             for(int i = 0;i<coresNumber;i++){
+                // Waiting
                 cThread.back()->wait();
+                // Clean termination of the thread
                 delete(cThread.back());
+                // Deletion from the list
                 cThread.pop_back();
             }
 
-           // System.out.println("COUCOU");
+            // Displaying time for each pass
             QTime endTime = QTime::currentTime();
             std::cout << "Time for pass " << pass << " (in ms) : " << startTime.msecsTo(endTime) << std::endl;
 
