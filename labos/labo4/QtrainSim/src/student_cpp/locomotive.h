@@ -2,8 +2,8 @@
 #define LOCOMOTIVE_H
 
 #include <QString>
-
-class Locomotive
+#include <QThread>
+class Locomotive : public QThread
 {
 
 public:
@@ -68,6 +68,8 @@ public:
     //! Change le sens de marche de la locomotive.
     void inverserSens();
 
+    //! implementation QThread
+    void run();
 private:
     int _numero;
     int _vitesse;
