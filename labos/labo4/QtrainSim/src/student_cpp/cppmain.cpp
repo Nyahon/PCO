@@ -1,16 +1,18 @@
 #include "ctrain_handler.h"
 #include "locomotive.h"
+#include "locohandler.h"
 
+#include <iostream>
 #include <QList>
 
 //Creation d'une locomotive
-static Locomotive locomotive;
-static Locomotive locomotive2;
+
+LocoHandler locoH;
 
 //Arret d'urgence
 void emergency_stop()
 {
-    locomotive.arreter();
+    locoH.locomotive.arreter();
     afficher_message("\nSTOP!");
 }
 
@@ -39,25 +41,33 @@ int cmain()
     diriger_aiguillage(17, TOUT_DROIT,  0);
     diriger_aiguillage(23, TOUT_DROIT,  0);
 
+
     //Initialisation de la locomotive
-    locomotive.fixerNumero(1);
-    locomotive.fixerVitesse(12);
-    locomotive.fixerPosition(15,16);
-    locomotive.allumerPhares();
-    locomotive.setParcours(parcours);
-    locomotive.start();
+    locoH.locomotive.fixerNumero(1);
+    std::cout << locoH.locomotive.numero() << " COUCOU" << std::endl;
+    locoH.locomotive.fixerVitesse(12);
+    locoH.locomotive.fixerPosition(23,16);
+    locoH.locomotive.allumerPhares();
+    locoH.locomotive.setParcours(parcours);
+
+    //locomotive.start();
     /*
     locomotive.demarrer();
     locomotive.afficherMessage("Ready!"); */
-
+/*
     locomotive2.fixerNumero(2);
     locomotive2.fixerVitesse(13);
     //locomotive2.fixerPosition(35, 36); <-- BUG
     locomotive2.fixerPosition(9, 35);
     locomotive2.setParcours(parcours);
     locomotive2.allumerPhares();
+    LocoHandler loco2(&locomotive2);
 
-    locomotive2.start();
+    //loco2.start();
+*/
+    locoH.start();
+
+    //locomotive2.start();
 
 
  /*   //Initialisation de la locomotive
@@ -81,9 +91,9 @@ int cmain()
     //locomotive.parcourirInverse(parcours);
     //locomotive2.parcourirInverse(parcours);
     //Arreter la locomotive
-    locomotive.arreter();
-    locomotive2.arreter();
-    locomotive.afficherMessage("Yeah, piece of cake!");
+    //locomotive.arreter();
+    //locomotive2.arreter();
+    locoH.locomotive.afficherMessage("Yeah, piece of cake!");
 
     //Fin de la simulation
     mettre_maquette_hors_service();

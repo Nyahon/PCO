@@ -22,6 +22,10 @@ int Locomotive::numero() const
     return _numero;
 }
 
+QList<int> Locomotive::parcours() const{
+    return _parcours;
+}
+
 void Locomotive::fixerNumero(int numero)
 {
     _numero = numero;
@@ -80,19 +84,21 @@ void Locomotive::inverserSens()
 void Locomotive::setParcours(QList<int> parcours){
     this->_parcours = parcours;
 }
-
+ /*
 void Locomotive::run(){
 
     this->demarrer();
     this->afficherMessage("Ready!");
+
     this->parcourir();
     this->parcourir();
     this->inverserSens();
     this->parcourir();
 
+
 }
-
-
+*/
+/*
 void Locomotive::parcourir(){
 
          for (int i = 0; i < this->_parcours.size(); i++) {
@@ -111,4 +117,4 @@ void Locomotive::parcourirInverse(){
                                         .arg(this->numero()).arg(this->_parcours.at(i))));
             this->afficherMessage(QString("I've reached contact no. %1.").arg(this->_parcours.at(i)));
         }
-}
+}*/
