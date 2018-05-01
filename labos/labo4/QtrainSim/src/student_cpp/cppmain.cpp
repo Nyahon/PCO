@@ -8,6 +8,8 @@
 //Creation d'une locomotive
 
 LocoHandler locoH;
+LocoHandler locoH2;
+
 
 //Arret d'urgence
 void emergency_stop()
@@ -40,15 +42,25 @@ int cmain()
     diriger_aiguillage(11, TOUT_DROIT,  0);
     diriger_aiguillage(17, TOUT_DROIT,  0);
     diriger_aiguillage(23, TOUT_DROIT,  0);
+    diriger_aiguillage(24, TOUT_DROIT,  0);
+    diriger_aiguillage(6, TOUT_DROIT,  0);
+
 
 
     //Initialisation de la locomotive
     locoH.locomotive.fixerNumero(1);
     std::cout << locoH.locomotive.numero() << " COUCOU" << std::endl;
     locoH.locomotive.fixerVitesse(12);
-    locoH.locomotive.fixerPosition(23,16);
+    locoH.locomotive.fixerPosition(16,23);
     locoH.locomotive.allumerPhares();
     locoH.locomotive.setParcours(parcours);
+
+    locoH2.locomotive.fixerNumero(2);
+    locoH2.locomotive.fixerVitesse(13);
+    //locomotive2.fixerPosition(35, 36); <-- BUG
+    locoH2.locomotive.fixerPosition(9, 35);
+    locoH2.locomotive.setParcours(parcours);
+    locoH2.locomotive.allumerPhares();
 
     //locomotive.start();
     /*
@@ -66,6 +78,7 @@ int cmain()
     //loco2.start();
 */
     locoH.start();
+    locoH2.start();
 
     //locomotive2.start();
 

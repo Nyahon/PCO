@@ -10,8 +10,7 @@ void LocoHandler::run(){
 
 
 
-    this->locomotive.demarrer();
-    this->locomotive.afficherMessage("Ready!");
+    this->locomotive.start();
 
     for(int j = 0; j < 2; ++j){
         for (int i = 0; i < this->locomotive.parcours().size(); i++) {

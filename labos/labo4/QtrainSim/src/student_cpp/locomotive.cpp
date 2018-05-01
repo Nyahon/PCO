@@ -84,20 +84,20 @@ void Locomotive::inverserSens()
 void Locomotive::setParcours(QList<int> parcours){
     this->_parcours = parcours;
 }
- /*
+
 void Locomotive::run(){
 
     this->demarrer();
     this->afficherMessage("Ready!");
-
+/*
     this->parcourir();
     this->parcourir();
     this->inverserSens();
-    this->parcourir();
+    this->parcourir();*/
 
 
 }
-*/
+
 /*
 void Locomotive::parcourir(){
 
