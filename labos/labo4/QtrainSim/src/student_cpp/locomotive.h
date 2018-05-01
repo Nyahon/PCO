@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QThread>
+#include "parcours.h"
 class Locomotive : public QThread
 {
 
@@ -68,12 +69,17 @@ public:
     //! Change le sens de marche de la locomotive.
     void inverserSens();
 
-    //! implementation QThread
     void run();
+
+    void parcourir();
+    void parcourirInverse();
+
+    void setParcours(QList<int> parcours);
 private:
     int _numero;
     int _vitesse;
     bool _enFonction;
+    QList<int> _parcours;
 };
 
 #endif // LOCOMOTIVE_H

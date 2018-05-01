@@ -15,6 +15,8 @@ void emergency_stop()
 }
 
 
+
+
 //Fonction principale
 int cmain()
 {
@@ -26,6 +28,7 @@ int cmain()
     //Initialisation d'un parcours
     QList<int> parcours;
     parcours << 16 << 15 << 14 << 7 << 6 << 5 << 34 << 33 << 32 << 25 << 24;
+
 
     //Initialisation des aiguillages
     diriger_aiguillage(8,  DEVIE,       0);
@@ -41,6 +44,7 @@ int cmain()
     locomotive.fixerVitesse(12);
     locomotive.fixerPosition(15,16);
     locomotive.allumerPhares();
+    locomotive.setParcours(parcours);
     locomotive.start();
     /*
     locomotive.demarrer();
@@ -50,7 +54,9 @@ int cmain()
     locomotive2.fixerVitesse(13);
     //locomotive2.fixerPosition(35, 36); <-- BUG
     locomotive2.fixerPosition(9, 35);
+    locomotive2.setParcours(parcours);
     locomotive2.allumerPhares();
+
     locomotive2.start();
 
 
@@ -66,15 +72,17 @@ int cmain()
     //
 
     //Attente du passage sur les contacts
-    for (int i = 0; i < parcours.size(); i++) {
-        attendre_contact(parcours.at(i));
-        afficher_message(qPrintable(QString("The engine no. %1 has reached contact no. %2.")
-                                    .arg(locomotive.numero()).arg(parcours.at(i))));
-        locomotive.afficherMessage(QString("I've reached contact no. %1.").arg(parcours.at(i)));
-    }
-
+    /*for(int i = 0; i < 2; ++i){
+        locomotive.parcourir(parcours);
+        locomotive2.parcourir(parcours);
+    }*/
+    //locomotive.inverserSens();
+    //locomotive2.inverserSens();
+    //locomotive.parcourirInverse(parcours);
+    //locomotive2.parcourirInverse(parcours);
     //Arreter la locomotive
     locomotive.arreter();
+    locomotive2.arreter();
     locomotive.afficherMessage("Yeah, piece of cake!");
 
     //Fin de la simulation

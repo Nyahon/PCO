@@ -77,9 +77,38 @@ void Locomotive::inverserSens()
     inverser_sens_loco(_numero);
 }
 
+void Locomotive::setParcours(QList<int> parcours){
+    this->_parcours = parcours;
+}
+
 void Locomotive::run(){
 
     this->demarrer();
     this->afficherMessage("Ready!");
+    this->parcourir();
+    this->parcourir();
+    this->inverserSens();
+    this->parcourir();
 
+}
+
+
+void Locomotive::parcourir(){
+
+         for (int i = 0; i < this->_parcours.size(); i++) {
+
+            attendre_contact(this->_parcours.at(i));
+            afficher_message(qPrintable(QString("The engine no. %1 has reached contact no. %2.")
+                                        .arg(this->numero()).arg(this->_parcours.at(i))));
+            this->afficherMessage(QString("I've reached contact no. %1.").arg(this->_parcours.at(i)));
+        }
+}
+
+void Locomotive::parcourirInverse(){
+        for (int i = this->_parcours.size()-1; i >= 0; i--) {
+            attendre_contact(this->_parcours.at(i));
+            afficher_message(qPrintable(QString("The engine no. %1 has reached contact no. %2.")
+                                        .arg(this->numero()).arg(this->_parcours.at(i))));
+            this->afficherMessage(QString("I've reached contact no. %1.").arg(this->_parcours.at(i)));
+        }
 }
