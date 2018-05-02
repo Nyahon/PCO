@@ -72,6 +72,7 @@ public:
 
     void setParcoursUrgence(QList<int> parcoursUrgence);
 
+
    /* void run(); */
 
     //void parcourir();
@@ -79,6 +80,10 @@ public:
 
     void setParcours(QList<int> parcours);
     QList<int> parcoursUrgence() const;
+    void setStartCS(int start);
+    int startCS();
+    void setEndCS(int end);
+    int endCS();
 
 private:
     int _numero;
@@ -86,7 +91,9 @@ private:
     bool _enFonction;
     QList<int> _parcours;
     QList<int> _parcoursUrgence;
-    bool _enUrgence;
+    int _startCS;
+    int _endCS;
+    bool _emergency;
 };
 
 #endif // LOCOMOTIVE_H

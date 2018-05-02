@@ -5,7 +5,7 @@ Locomotive::Locomotive() :
     _numero(-1),
     _vitesse(0),
     _enFonction(false),
-    _enUrgence(false)
+    _emergency(false)
 {
 
 }
@@ -14,7 +14,7 @@ Locomotive::Locomotive(int numero, int vitesse) :
     _numero(numero),
     _vitesse(vitesse),
     _enFonction(false),
-    _enUrgence(false)
+    _emergency(false)
 {
 
 }
@@ -94,6 +94,30 @@ void Locomotive::setParcours(QList<int> parcours){
 void Locomotive::setParcoursUrgence(QList<int> parcoursUrgence){
     this->_parcoursUrgence = parcoursUrgence;
 }
+
+void Locomotive::setStartCS(int start){
+    this->_startCS = start;
+}
+
+int Locomotive::startCS(){
+    return this->_start;
+}
+void Locomotive::setEndCS(int end){
+    this->_endCS = end;
+}
+
+int Locomotive::endCS(){
+    return this->_endCS;
+}
+
+void Locomotive::setEmergency(bool takingEmergencyPath){
+    this->_emergency = takingEmergencyPath;
+}
+
+bool Locomotive::emergency(){
+    return this->_emergency;
+}
+
 /*
 void Locomotive::run(){
 
