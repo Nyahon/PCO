@@ -4,7 +4,8 @@
 Locomotive::Locomotive() :
     _numero(-1),
     _vitesse(0),
-    _enFonction(false)
+    _enFonction(false),
+    _enUrgence(false)
 {
 
 }
@@ -12,7 +13,8 @@ Locomotive::Locomotive() :
 Locomotive::Locomotive(int numero, int vitesse) :
     _numero(numero),
     _vitesse(vitesse),
-    _enFonction(false)
+    _enFonction(false),
+    _enUrgence(false)
 {
 
 }
@@ -24,6 +26,10 @@ int Locomotive::numero() const
 
 QList<int> Locomotive::parcours() const{
     return _parcours;
+}
+
+QList<int> Locomotive::parcoursUrgence() const{
+    return _parcoursUrgence;
 }
 
 void Locomotive::fixerNumero(int numero)
@@ -83,6 +89,10 @@ void Locomotive::inverserSens()
 
 void Locomotive::setParcours(QList<int> parcours){
     this->_parcours = parcours;
+}
+
+void Locomotive::setParcoursUrgence(QList<int> parcoursUrgence){
+    this->_parcoursUrgence = parcoursUrgence;
 }
 /*
 void Locomotive::run(){

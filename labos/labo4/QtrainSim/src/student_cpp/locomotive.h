@@ -70,17 +70,23 @@ public:
     //! Change le sens de marche de la locomotive.
     void inverserSens();
 
+    void setParcoursUrgence(QList<int> parcoursUrgence);
+
    /* void run(); */
 
     //void parcourir();
     //void parcourirInverse();
 
     void setParcours(QList<int> parcours);
+    QList<int> parcoursUrgence() const;
+
 private:
     int _numero;
     int _vitesse;
     bool _enFonction;
     QList<int> _parcours;
+    QList<int> _parcoursUrgence;
+    bool _enUrgence;
 };
 
 #endif // LOCOMOTIVE_H

@@ -34,6 +34,12 @@ int cmain()
     //Initialisation d'un parcours
     QList<int> parcours;
     parcours << 16 << 15 << 14 << 7 << 6 << 5 << 34 << 33 << 32 << 25 << 24;
+    QList<int> grandParcours;
+    grandParcours << 16 << 15 << 10 << 4 << 6 << 5 << 34 << 33 << 28 << 22 << 24 << 23;
+    QList<int> petitParcours;
+    petitParcours << 9 << 8 << 6 << 5 << 34 << 33 << 36 << 35;
+    QList<int> parcoursUrgence;
+    parcoursUrgence << 3 << 2 << 1 << 31 << 30;
 
     //Initialisation LocoHandlers
 
@@ -64,13 +70,14 @@ int cmain()
     locoH.locomotive->fixerVitesse(12);
     locoH.locomotive->fixerPosition(16,23);
     locoH.locomotive->allumerPhares();
-    locoH.locomotive->setParcours(parcours);
+    locoH.locomotive->setParcours(grandParcours);
+    locoH.locomotive->setParcoursUrgence(parcoursUrgence);
 
     locoH2.locomotive->fixerNumero(3);
     locoH2.locomotive->fixerVitesse(13);
     //locomotive2.fixerPosition(35, 36); <-- BUG
     locoH2.locomotive->fixerPosition(9, 35);
-    locoH2.locomotive->setParcours(parcours);
+    locoH2.locomotive->setParcours(petitParcours);
     locoH2.locomotive->allumerPhares();
 
     //locomotive->start();

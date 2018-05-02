@@ -132,3 +132,4 @@ HEADERS += \
     src/student_cpp/locohandler.h
 
 OTHER_FILES += infosVoies.txt
+CONFIG += c++11

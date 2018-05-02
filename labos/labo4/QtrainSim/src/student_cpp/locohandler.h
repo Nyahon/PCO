@@ -14,8 +14,8 @@ public:
     //! implementation QThread
     void run();
     void lockSeg(int no, int backpoint, int frontpoint);
-    void checkStateLoco1(bool sens, int loc);
-    void checkStateLoco2(bool sens, int loc);
+    void checkStateLoco1(bool sens, int* loc);
+    void checkStateLoco2(bool sens, int* loc);
     void setAiguillage(int no, int frontpoint, int sens);
 
 
