@@ -72,6 +72,11 @@ public:
 
     void setParcoursUrgence(QList<int> parcoursUrgence);
 
+    bool emergency();
+
+    void setEmergency(bool takingEmergencyPath);
+
+
 
    /* void run(); */
 

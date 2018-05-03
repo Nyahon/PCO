@@ -2,12 +2,13 @@
 #include "locomotive.h"
 #include "locohandler.h"
 #include <iostream>
+#include "locohandler1.h"
 
 #include <QList>
 
 //Creation d'une locomotive
 
-LocoHandler locoH;
+LocoHandler1 locoH;
 LocoHandler locoH2;
 
 

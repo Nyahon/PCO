@@ -4,7 +4,7 @@
 #include "locomotive.h"
 #include <QThread>
 #include <QSemaphore>
-class LocoHandler2 : public QThread{
+class LocoHandler2 : public QThread {
 
 private:
 
@@ -12,7 +12,7 @@ private:
     bool sens;
     QSemaphore* mutmut;
     QSemaphore* busypath;
-    Locomotive locomotive;
+    Locomotive* locomotive;
 
 public:
     void setAiguillage(int numAig);
@@ -20,5 +20,5 @@ public:
     void run();
     void emergencyPath();
 
-}
+};
 #endif // LOCOHANDLER2_H

@@ -3,10 +3,11 @@
 #include <QThread>
 #include <QSemaphore>
 #include "locomotive.h"
+#include "ilocohandler.h"
 
 
 
-class LocoHandler : public QThread {
+class LocoHandler {
 public:
     Locomotive* locomotive;
 

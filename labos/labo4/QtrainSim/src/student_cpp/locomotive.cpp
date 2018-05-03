@@ -100,7 +100,7 @@ void Locomotive::setStartCS(int start){
 }
 
 int Locomotive::startCS(){
-    return this->_start;
+    return this->_startCS;
 }
 void Locomotive::setEndCS(int end){
     this->_endCS = end;
