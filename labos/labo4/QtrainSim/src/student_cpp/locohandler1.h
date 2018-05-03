@@ -8,8 +8,8 @@ class LocoHandler1 : public ILocoHandler
 public:
     LocoHandler1();
 
-    void setAiguillage(bool isFree, int sens, int numAig );
-    void criticalSection( bool isFree  );
+    void setAiguillage(int numAig, int direction );
+    void criticalSection();
     void run();
 };
 

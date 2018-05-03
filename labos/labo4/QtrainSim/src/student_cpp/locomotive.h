@@ -90,6 +90,8 @@ public:
     void setEndCS(int end);
     int endCS();
 
+    void inverserSensParcours();
+
 private:
     int _numero;
     int _vitesse;

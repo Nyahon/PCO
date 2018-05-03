@@ -1,5 +1,8 @@
 #ifndef ILOCOHANDLER_H
 #define ILOCOHANDLER_H
+#define CS_ENTRY criticalSectionPoints.at(1)
+#define CS_EXIT criticalSectionPoints.at(4)
+
 
 #include <QThread>
 #include <QSemaphore>
@@ -8,7 +11,7 @@
 
 class ILocoHandler : public QThread {
 
-private:
+protected:
 
     bool isFree;
     bool sens = true;
@@ -22,12 +25,15 @@ private:
 public:
     Locomotive* locomotive;
 
-    virtual void setAiguillage(bool isFree, int sens, int numAig ) = 0;
-    virtual void criticalSection( bool isFree  ) = 0;
+    virtual void setAiguillage(int numAig, int direction) = 0;
+    virtual void criticalSectionStart() = 0;
+    virtual void criticalSectionEnd() = 0;
     virtual void run() = 0;
     void changeSens(bool newSens) {
         if(sens != newSens){
             std::reverse(criticalSectionPoints.begin(), criticalSectionPoints.end());
+            std::reverse(criticalAig.begin(), criticalAig.end());
+            this->locomotive->inverserSensParcours();
             sens = !sens;
         }
     }

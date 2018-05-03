@@ -117,6 +117,9 @@ void Locomotive::setEmergency(bool takingEmergencyPath){
 bool Locomotive::emergency(){
     return this->_emergency;
 }
+void Locomotive::inverserSensParcours(){
+    std::reverse(this->_parcours.begin(), this->_parcours.end());
+}
 
 /*
 void Locomotive::run(){

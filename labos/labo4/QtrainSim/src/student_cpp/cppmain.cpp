@@ -3,20 +3,21 @@
 #include "locohandler.h"
 #include <iostream>
 #include "locohandler1.h"
+#include "locohandler2.h"
 
 #include <QList>
 
 //Creation d'une locomotive
 
-LocoHandler1 locoH;
-LocoHandler1 locoH2;
+LocoHandler2 locoH;
+//LocoHandler1 locoH2;
 
 
 //Arret d'urgence
 void emergency_stop()
 {
     locoH.locomotive->arreter();
-    locoH2.locomotive->arreter();
+    //locoH2.locomotive->arreter();
 
     afficher_message("\nSTOP!");
 }
@@ -72,15 +73,15 @@ int cmain()
     locoH.locomotive->fixerPosition(16,23);
     locoH.locomotive->allumerPhares();
     locoH.locomotive->setParcours(grandParcours);
-    locoH.locomotive->setParcoursUrgence(parcoursUrgence);
-
+    //locoH.locomotive->setParcoursUrgence(parcoursUrgence);
+/*
     locoH2.locomotive->fixerNumero(3);
     locoH2.locomotive->fixerVitesse(13);
     //locomotive2.fixerPosition(35, 36); <-- BUG
     locoH2.locomotive->fixerPosition(9, 35);
     locoH2.locomotive->setParcours(petitParcours);
     locoH2.locomotive->allumerPhares();
-
+*/
     //locomotive->start();
     /*
     locomotive->demarrer();
@@ -97,7 +98,7 @@ int cmain()
     //loco2.start();
 */
     locoH.start();
-    locoH2.start();
+    //locoH2.start();
 
     //locomotive2.start();
 
@@ -126,7 +127,7 @@ int cmain()
     //locomotive->arreter();
     //locomotive2.arreter();
 
-    locoH2.locomotive->afficherMessage("Yeah, piece of cake!");
+    //locoH2.locomotive->afficherMessage("Yeah, piece of cake!");
 
     //Fin de la simulation
     mettre_maquette_hors_service();
