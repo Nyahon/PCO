@@ -9,7 +9,8 @@
 
 //Creation d'une locomotive
 
-LocoHandler2 locoH;
+LocoHandler1 locoH;
+LocoHandler2 locoH2;
 //LocoHandler1 locoH2;
 
 
@@ -48,7 +49,7 @@ int cmain()
 
     //Initialisation des aiguillages
     diriger_aiguillage(8,  TOUT_DROIT,       0);
-    diriger_aiguillage(4,  TOUT_DROIT,       0);
+    diriger_aiguillage(4,  DEVIE,       0);
     diriger_aiguillage(22,  DEVIE,       0);    //point critique
     /*MAGIC*/
     diriger_aiguillage(16,  DEVIE,       0);
@@ -67,21 +68,22 @@ int cmain()
 
 
     //Initialisation de la locomotive
-    locoH.locomotive->fixerNumero(2);
+    locoH.locomotive->fixerNumero(1);
     std::cout << locoH.locomotive->numero() << " COUCOU" << std::endl;
     locoH.locomotive->fixerVitesse(12);
-    locoH.locomotive->fixerPosition(9,35);
+    locoH.locomotive->fixerPosition(16,23);
     locoH.locomotive->allumerPhares();
-    locoH.locomotive->setParcours(petitParcours);
+    locoH.locomotive->setParcours(grandParcours);
+
     //locoH.locomotive->setParcoursUrgence(parcoursUrgence);
-/*
-    locoH2.locomotive->fixerNumero(3);
-    locoH2.locomotive->fixerVitesse(13);
+
+    locoH2.locomotive->fixerNumero(2);
+    locoH2.locomotive->fixerVitesse(12);
     //locomotive2.fixerPosition(35, 36); <-- BUG
     locoH2.locomotive->fixerPosition(9, 35);
     locoH2.locomotive->setParcours(petitParcours);
     locoH2.locomotive->allumerPhares();
-*/
+
     //locomotive->start();
     /*
     locomotive->demarrer();
@@ -100,7 +102,7 @@ int cmain()
     //
 
     locoH.start();
-    //locoH2.start();
+    locoH2.start();
 
     //locomotive2.start();
 

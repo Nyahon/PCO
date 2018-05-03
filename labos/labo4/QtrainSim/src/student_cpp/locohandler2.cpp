@@ -16,6 +16,8 @@ void LocoHandler2::criticalSectionStart(){
     busypath->acquire();
     this->locomotive->afficherMessage(QString("I got the mutex."));
     isFree = false;
+    this->locomotive->afficherMessage(QString("UNFREE"));
+
     setAiguillage(criticalAig.at(0), DEVIE);
 
 }

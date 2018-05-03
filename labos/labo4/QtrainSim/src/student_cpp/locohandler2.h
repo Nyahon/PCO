@@ -12,7 +12,7 @@
 #include <QSemaphore>
 class LocoHandler2 : public ILocoHandler {
 private:
-    QList<int> checkPoints{8, 34, 36, 5};
+    QList<int> checkPoints{8, 34, 5, 36};
 public:
     void setAiguillage(int numAig, int direction);
     void criticalSectionStart();
