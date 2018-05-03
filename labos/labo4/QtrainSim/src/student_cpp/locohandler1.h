@@ -9,7 +9,8 @@ public:
     LocoHandler1();
 
     void setAiguillage(int numAig, int direction );
-    void criticalSection();
+    void criticalSectionStart();
+    void criticalSectionEnd();
     void run();
 };
 

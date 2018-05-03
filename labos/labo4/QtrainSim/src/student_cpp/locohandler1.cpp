@@ -1,17 +1,47 @@
 #include "locohandler1.h"
+#include "ctrain_handler.h"
+#include "locomotive.h"
+#include <QThread>
+#include <QSemaphore>
 
-LocoHandler1::LocoHandler1()
-{
+void LocoHandler1::setAiguillage(int numAig, int direction){
+    mutmut->acquire();
+    diriger_aiguillage(numAig, direction, 0);
+    mutmut->release();
+}
 
+void LocoHandler1::criticalSectionStart(){
+    busypath->acquire();
+    isFree = false;
+    setAiguillage(criticalAig.at(0), DEVIE);
 
 }
 
-void LocoHandler1::setAiguillage(int numAig, int direction) {
+void LocoHandler1::criticalSectionEnd(){
+    setAiguillage(criticalAig.at(4), DEVIE);
+    isFree = true;
+    busypath->release();
+}
+
+void LocoHandler1::run(){
+    this->locomotive->demarrer();
+
+    for(int i = 0; i < this->locomotive->parcours().size(); ++i){
+        attendre_contact(this->locomotive->parcours().at(i));
+        this->locomotive->afficherMessage(QString("I've reached contact no. %1.").arg(this->locomotive->parcours().at(i)));
+        if(this->locomotive->parcours().at(i) == CS_ENTRY){
+            if(isFree){
+                criticalSectionStart();
+            }else{
+                arreter_loco(this->locomotive->numero());
+                busypath->acquire();
+                this->locomotive->demarrer();
+                setAiguillage(criticalAig.at(0), DEVIE);
+            }
+        }else if(i == CS_EXIT){
+            criticalSectionEnd();
+        }
+    }
 
 }
-void LocoHandler1::criticalSection() {
 
-}
-void LocoHandler1::run() {
-
-}

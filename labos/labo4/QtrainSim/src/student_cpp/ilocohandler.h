@@ -23,8 +23,14 @@ protected:
     QSemaphore* busypath;
 
 public:
-    Locomotive* locomotive;
+    Locomotive* locomotive /*= new Locomotive()*/ ;
 
+    ILocoHandler() {
+        mutmut = new QSemaphore();
+        busypath = new QSemaphore();
+        locomotive = new Locomotive();
+        isFree = true;
+    }
     virtual void setAiguillage(int numAig, int direction) = 0;
     virtual void criticalSectionStart() = 0;
     virtual void criticalSectionEnd() = 0;
