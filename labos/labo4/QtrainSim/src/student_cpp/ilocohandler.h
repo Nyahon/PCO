@@ -1,7 +1,5 @@
 #ifndef ILOCOHANDLER_H
 #define ILOCOHANDLER_H
-#define CS_ENTRY criticalSectionPoints.at(1)
-#define CS_EXIT criticalSectionPoints.at(4)
 
 
 #include <QThread>
@@ -25,9 +23,10 @@ protected:
 public:
     Locomotive* locomotive /*= new Locomotive()*/ ;
 
+
     ILocoHandler() {
-        mutmut = new QSemaphore();
-        busypath = new QSemaphore();
+        mutmut = new QSemaphore(1);
+        busypath = new QSemaphore(1);
         locomotive = new Locomotive();
         isFree = true;
     }

@@ -67,12 +67,12 @@ int cmain()
 
 
     //Initialisation de la locomotive
-    locoH.locomotive->fixerNumero(1);
+    locoH.locomotive->fixerNumero(2);
     std::cout << locoH.locomotive->numero() << " COUCOU" << std::endl;
     locoH.locomotive->fixerVitesse(12);
-    locoH.locomotive->fixerPosition(16,23);
+    locoH.locomotive->fixerPosition(9,35);
     locoH.locomotive->allumerPhares();
-    locoH.locomotive->setParcours(grandParcours);
+    locoH.locomotive->setParcours(petitParcours);
     //locoH.locomotive->setParcoursUrgence(parcoursUrgence);
 /*
     locoH2.locomotive->fixerNumero(3);
@@ -97,6 +97,8 @@ int cmain()
 
     //loco2.start();
 */
+    //
+
     locoH.start();
     //locoH2.start();
 
