@@ -9,7 +9,7 @@
 //Creation d'une locomotive
 
 LocoHandler1 locoH;
-LocoHandler locoH2;
+LocoHandler1 locoH2;
 
 
 //Arret d'urgence

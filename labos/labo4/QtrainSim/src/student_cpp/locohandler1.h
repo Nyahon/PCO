@@ -9,7 +9,7 @@ public:
     LocoHandler1();
 
     void setAiguillage(bool isFree, int sens, int numAig );
-    void criticalSection(  );
+    void criticalSection( bool isFree  );
     void run();
 };
 
