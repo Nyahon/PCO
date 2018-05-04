@@ -18,7 +18,7 @@
 class LocoHandler2 : public ILocoHandler {
 private:
     // Liste des points de passage où un contrôle de section critique doit être effectué
-    QList<int> checkPoints{8, 34, 5, 36};
+    QList<int> checkPoints{9, 34, 5, 35};
 public:
     void setAiguillage(int numAig, int direction);
     void criticalSectionStart();

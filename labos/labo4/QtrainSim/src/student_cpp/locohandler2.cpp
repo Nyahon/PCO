@@ -59,12 +59,16 @@ while(true) {
           }else{ // Si la section n'est pas libre
                 // La locomotive s'arrête
                this->locomotive->arreter();
-                // Blocage tant que la section critique est occupée, prise du sémaphore
-                busypath->acquire();
+
+                if(locoPriority == locomotive->numero() || locoPriority == 0)
+                {
+                    // Blocage tant que la section critique est occupée, prise du sémaphore
+                    busypath->acquire();
                 // Direction de l'aiguillage pour l'entrée en section critique
                 setAiguillage(criticalAig.at(0), DEVIE);
                 // Redémarrage de la locomotive
-                this->locomotive->demarrer();
+                    this->locomotive->demarrer();
+                }
             }
             // Si la locomotive arrive devant la sortie de la section critique
         }else if(this->locomotive->parcours().at(i) == CS_EXIT){

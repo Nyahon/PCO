@@ -66,7 +66,7 @@ int cmain()
 
     //Initialisation de la locomotive 1
     locoH.locomotive->fixerNumero(1);
-    locoH.locomotive->fixerVitesse(12);
+    locoH.locomotive->fixerVitesse(9);
     locoH.locomotive->fixerPosition(16,23);
     locoH.locomotive->allumerPhares();
     locoH.locomotive->setParcours(grandParcours);
@@ -74,7 +74,7 @@ int cmain()
 
     //Initialisation de la locomotive 2
     locoH2.locomotive->fixerNumero(2);
-    locoH2.locomotive->fixerVitesse(12);
+    locoH2.locomotive->fixerVitesse(9);
     locoH2.locomotive->fixerPosition(9, 35);
     locoH2.locomotive->setParcours(petitParcours);
     locoH2.locomotive->allumerPhares();
@@ -87,12 +87,13 @@ int cmain()
     mettre_maquette_hors_service();
 
     //Exemple de commande
+    while(true){
     afficher_message("Enter a command in the input field at the top of the window.");
     QString commande = getCommand();
     afficher_message(qPrintable(QString("Your command is: ") + commande));
     ILocoHandler::setPriority( commande.toInt() );
     afficher_message(qPrintable(QString("value is: ") + ILocoHandler::getPriority() ));
-
+}
     return EXIT_SUCCESS;
 }
 
