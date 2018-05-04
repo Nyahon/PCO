@@ -9,8 +9,11 @@
 class LocoHandler1 : public ILocoHandler
 {
 private:
+    // Liste des points de passage où un contrôle de section critique doit être effectué
     QList<int> checkPoints{4, 34, 5, 28};
+    // Liste des checkpoints d'évitement
     QList<int> evCheckPoints{29,3};
+    // Liste des aiguillages d'évitement
     QList<int> evitmentAig{4,19};
 
 
@@ -23,7 +26,6 @@ public:
     void evitmentSectionStart();
     void evitmentSectionEnd();
     void changeSens(bool newSens);
-
     void run();
 };
 
