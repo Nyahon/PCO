@@ -38,7 +38,7 @@ while(true) {
         attendre_contact(this->locomotive->parcours().at(i));
         this->locomotive->afficherMessage(QString("I've reached contact no. %1.").arg(this->locomotive->parcours().at(i)));
         if(this->locomotive->parcours().at(i) == CS_ENTRY){
-           if(isFree){
+            if(isFree && (locoPriority == locomotive->numero() || locoPriority == 0) ){
                 this->locomotive->afficherMessage(QString("It's free!"));
                 criticalSectionStart();
           }else{

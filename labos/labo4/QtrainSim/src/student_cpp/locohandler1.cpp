@@ -69,7 +69,7 @@ while(true){
         if(this->locomotive->parcours().at(i) == CS_ENTRY) {
             this->locomotive->afficherMessage(QString("LOLOLO"));
 
-            if(isFree){
+            if(isFree && (locoPriority == locomotive->numero() || locoPriority == 0) ){
                 criticalSectionStart();
 
             }else{

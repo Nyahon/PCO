@@ -13,6 +13,7 @@ protected:
 
     static bool isFree;
      static bool sens;
+     static int locoPriority;
     QList<int> criticalSectionPoints = {4, 6, 5, 34, 33, 28};
     QList<int> criticalAig= {3,20};
     int startCS = 6;
@@ -45,6 +46,12 @@ public:
         }
         this->locomotive->afficherMessage(QString("SENS INVERSED ? "));
 
+    }
+    static void setPriority(int p){
+        locoPriority = p;
+    }
+    static int getPriority(){
+        return locoPriority;
     }
 };
 #endif // ILOCOHANDLER_H

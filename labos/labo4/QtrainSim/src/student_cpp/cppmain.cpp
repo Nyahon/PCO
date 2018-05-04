@@ -12,6 +12,7 @@ QSemaphore* ILocoHandler::mutmut = new QSemaphore(1);
 QSemaphore* ILocoHandler::busypath = new QSemaphore(1);
 bool ILocoHandler::isFree = true;
 bool ILocoHandler::sens = true;
+int ILocoHandler::locoPriority = 0;
 LocoHandler1 locoH;
 LocoHandler2 locoH2;
 
@@ -89,6 +90,8 @@ int cmain()
     afficher_message("Enter a command in the input field at the top of the window.");
     QString commande = getCommand();
     afficher_message(qPrintable(QString("Your command is: ") + commande));
+    ILocoHandler::setPriority( commande.toInt() );
+    afficher_message(qPrintable(QString("value is: ") + ILocoHandler::getPriority() ));
 
     return EXIT_SUCCESS;
 }
