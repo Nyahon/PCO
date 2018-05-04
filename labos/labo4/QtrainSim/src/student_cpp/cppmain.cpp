@@ -7,27 +7,21 @@
 
 #include <QList>
 
-//Creation d'une locomotive
+//Initialisation des variables statiques
 QSemaphore* ILocoHandler::mutmut = new QSemaphore(1);
 QSemaphore* ILocoHandler::busypath = new QSemaphore(1);
 bool ILocoHandler::isFree = true;
 bool ILocoHandler::sens = true;
 LocoHandler1 locoH;
 LocoHandler2 locoH2;
-//LocoHandler1 locoH2;
 
 
 //Arret d'urgence
 void emergency_stop()
 {
     locoH.locomotive->arreter();
-    //locoH2.locomotive->arreter();
-
     afficher_message("\nSTOP!");
 }
-
-
-
 
 //Fonction principale
 int cmain()
@@ -47,8 +41,6 @@ int cmain()
     QList<int> parcoursUrgence;
     parcoursUrgence << 3 << 2 << 1 << 31 << 30 << 29;
 
-    //Initialisation LocoHandlers
-
 
     //Initialisation des aiguillages
     diriger_aiguillage(8,  TOUT_DROIT,       0);
@@ -56,7 +48,6 @@ int cmain()
     diriger_aiguillage(22, TOUT_DROIT,       0);
 
     diriger_aiguillage(4,  DEVIE,       0);
-    /*MAGIC*/
     diriger_aiguillage(16,  DEVIE,       0);
     diriger_aiguillage(2,  DEVIE,       0);
     diriger_aiguillage(15, TOUT_DROIT,  0);
@@ -72,70 +63,24 @@ int cmain()
 
 
 
-    //Initialisation de la locomotive
+    //Initialisation de la locomotive 1
     locoH.locomotive->fixerNumero(1);
-    std::cout << locoH.locomotive->numero() << " COUCOU" << std::endl;
     locoH.locomotive->fixerVitesse(12);
     locoH.locomotive->fixerPosition(16,23);
     locoH.locomotive->allumerPhares();
     locoH.locomotive->setParcours(grandParcours);
     locoH.locomotive->setParcoursUrgence(parcoursUrgence);
 
+    //Initialisation de la locomotive 2
     locoH2.locomotive->fixerNumero(2);
     locoH2.locomotive->fixerVitesse(12);
-    //locomotive2.fixerPosition(35, 36); <-- BUG
     locoH2.locomotive->fixerPosition(9, 35);
     locoH2.locomotive->setParcours(petitParcours);
     locoH2.locomotive->allumerPhares();
 
-    //locomotive->start();
-    /*
-    locomotive->demarrer();
-    locomotive->afficherMessage("Ready!"); */
-/*
-    locomotive2.fixerNumero(2);
-    locomotive2.fixerVitesse(13);
-    //locomotive2.fixerPosition(35, 36); <-- BUG
-    locomotive2.fixerPosition(9, 35);
-    locomotive2.setParcours(parcours);
-    locomotive2.allumerPhares();
-    LocoHandler loco2(&locomotive2);
-
-    //loco2.start();
-*/
-    //
 
     locoH.start();
     locoH2.start();
-
-    //locomotive2.start();
-
-
- /*   //Initialisation de la locomotive
-    locomotive2.fixerNumero(2);
-    locomotive2.fixerVitesse(12);
-    locomotive2.fixerPosition(35, 36);
-    locomotive2.allumerPhares();
-    locomotive2.demarrer();
-    locomotive2.afficherMessage("Ready!"); */
-
-
-    //
-
-    //Attente du passage sur les contacts
-    /*for(int i = 0; i < 2; ++i){
-        locomotive->parcourir(parcours);
-        locomotive2.parcourir(parcours);
-    }*/
-    //locomotive->inverserSens();
-    //locomotive2.inverserSens();
-    //locomotive->parcourirInverse(parcours);
-    //locomotive2.parcourirInverse(parcours);
-    //Arreter la locomotive
-    //locomotive->arreter();
-    //locomotive2.arreter();
-
-    //locoH2.locomotive->afficherMessage("Yeah, piece of cake!");
 
     //Fin de la simulation
     mettre_maquette_hors_service();
