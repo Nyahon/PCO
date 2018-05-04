@@ -70,26 +70,19 @@ public:
     //! Change le sens de marche de la locomotive.
     void inverserSens();
 
+    //! Set le parcours d'évitement de la locomotive
     void setParcoursUrgence(QList<int> parcoursUrgence);
 
-    bool emergency();
-
-    void setEmergency(bool takingEmergencyPath);
-
+    //! Change le parcours sur lequel itérer
     void switchParcours();
 
-   /* void run(); */
-
-    //void parcourir();
-    //void parcourirInverse();
-
+    //! Set le parcours principal de la locomotive
     void setParcours(QList<int> parcours);
-    QList<int> parcoursUrgence() const;
-    void setStartCS(int start);
-    int startCS();
-    void setEndCS(int end);
-    int endCS();
 
+    //! Renvoie le parcours d'évitement de la locomotive
+    QList<int> parcoursUrgence() const;
+
+    //! Inverse le sens du parcours principal de la locomotive
     void inverserSensParcours();
 
 private:
@@ -98,9 +91,6 @@ private:
     bool _enFonction;
     QList<int> _parcours;
     QList<int> _parcoursUrgence;
-    int _startCS;
-    int _endCS;
-    bool _emergency;
 };
 
 #endif // LOCOMOTIVE_H

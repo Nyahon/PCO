@@ -4,8 +4,7 @@
 Locomotive::Locomotive() :
     _numero(-1),
     _vitesse(0),
-    _enFonction(false),
-    _emergency(false)
+    _enFonction(false)
 {
 
 }
@@ -13,8 +12,7 @@ Locomotive::Locomotive() :
 Locomotive::Locomotive(int numero, int vitesse) :
     _numero(numero),
     _vitesse(vitesse),
-    _enFonction(false),
-    _emergency(false)
+    _enFonction(false)
 {
 
 }
@@ -95,28 +93,7 @@ void Locomotive::setParcoursUrgence(QList<int> parcoursUrgence){
     this->_parcoursUrgence = parcoursUrgence;
 }
 
-void Locomotive::setStartCS(int start){
-    this->_startCS = start;
-}
 
-int Locomotive::startCS(){
-    return this->_startCS;
-}
-void Locomotive::setEndCS(int end){
-    this->_endCS = end;
-}
-
-int Locomotive::endCS(){
-    return this->_endCS;
-}
-
-void Locomotive::setEmergency(bool takingEmergencyPath){
-    this->_emergency = takingEmergencyPath;
-}
-
-bool Locomotive::emergency(){
-    return this->_emergency;
-}
 void Locomotive::inverserSensParcours(){
     std::reverse(this->_parcours.begin(), this->_parcours.end());
     if(parcoursUrgence().size() != 0)
@@ -129,43 +106,6 @@ void Locomotive::switchParcours(){
     afficherMessage(QString("tm: %1").arg(tmpP.at(0)));
     _parcours = _parcoursUrgence;
     afficherMessage(QString("tm Par: %1").arg(_parcours.at(0)));
-
     _parcoursUrgence = tmpP;
     afficherMessage(QString("tm: %1").arg(_parcoursUrgence.at(0)));
-
-
 }
-/*
-void Locomotive::run(){
-
-    this->demarrer();
-    this->afficherMessage("Ready!");
-/*
-    this->parcourir();
-    this->parcourir();
-    this->inverserSens();
-    this->parcourir();*/
-
-
-/*} */
-
-/*
-void Locomotive::parcourir(){
-
-         for (int i = 0; i < this->_parcours.size(); i++) {
-
-            attendre_contact(this->_parcours.at(i));
-            afficher_message(qPrintable(QString("The engine no. %1 has reached contact no. %2.")
-                                        .arg(this->numero()).arg(this->_parcours.at(i))));
-            this->afficherMessage(QString("I've reached contact no. %1.").arg(this->_parcours.at(i)));
-        }
-}
-
-void Locomotive::parcourirInverse(){
-        for (int i = this->_parcours.size()-1; i >= 0; i--) {
-            attendre_contact(this->_parcours.at(i));
-            afficher_message(qPrintable(QString("The engine no. %1 has reached contact no. %2.")
-                                        .arg(this->numero()).arg(this->_parcours.at(i))));
-            this->afficherMessage(QString("I've reached contact no. %1.").arg(this->_parcours.at(i)));
-        }
-}*/
