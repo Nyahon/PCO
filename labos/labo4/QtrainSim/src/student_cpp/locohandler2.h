@@ -19,6 +19,7 @@ class LocoHandler2 : public ILocoHandler {
 private:
     // Liste des points de passage où un contrôle de section critique doit être effectué
     QList<int> checkPoints{9, 34, 5, 35};
+    QSemaphore* prioritySem = new QSemaphore(1);
 public:
     void setAiguillage(int numAig, int direction);
     void criticalSectionStart();
@@ -26,5 +27,6 @@ public:
     void run();
     //! Redéfinition de la méthode changeSens() de ILocoHandler
     void changeSens(bool newSens);
+    void setPriority(int i);
 };
 #endif // LOCOHANDLER2_H

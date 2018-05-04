@@ -92,6 +92,7 @@ int cmain()
     QString commande = getCommand();
     afficher_message(qPrintable(QString("Your command is: ") + commande));
     ILocoHandler::setPriority( commande.toInt() );
+    locoH2.setPriority(commande.toInt() );
     afficher_message(qPrintable(QString("value is: ") + ILocoHandler::getPriority() ));
 }
     return EXIT_SUCCESS;

@@ -36,7 +36,12 @@ void LocoHandler2::criticalSectionEnd(){
     // Relâche le sémaphore
     busypath->release();
 }
-
+void LocoHandler2::setPriority(int i){
+    if(i ==1)
+        prioritySem->acquire();
+    if(i == 0 || i == 2)
+        prioritySem->release();
+}
 void LocoHandler2::run(){
     // Lancement de la locomotive
     this->locomotive->demarrer();
@@ -60,16 +65,17 @@ while(true) {
                 // La locomotive s'arrête
                this->locomotive->arreter();
 
-                if(locoPriority == locomotive->numero() || locoPriority == 0)
-                {
+                     prioritySem->acquire();
                     // Blocage tant que la section critique est occupée, prise du sémaphore
                     busypath->acquire();
                 // Direction de l'aiguillage pour l'entrée en section critique
                 setAiguillage(criticalAig.at(0), DEVIE);
                 // Redémarrage de la locomotive
                     this->locomotive->demarrer();
+
+                    prioritySem->release();
                 }
-            }
+
             // Si la locomotive arrive devant la sortie de la section critique
         }else if(this->locomotive->parcours().at(i) == CS_EXIT){
             // Sortie de la section critique
