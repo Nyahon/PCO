@@ -76,7 +76,7 @@ public:
 
     void setEmergency(bool takingEmergencyPath);
 
-
+    void switchParcours();
 
    /* void run(); */
 

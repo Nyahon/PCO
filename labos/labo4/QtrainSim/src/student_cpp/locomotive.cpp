@@ -119,8 +119,22 @@ bool Locomotive::emergency(){
 }
 void Locomotive::inverserSensParcours(){
     std::reverse(this->_parcours.begin(), this->_parcours.end());
+    if(parcoursUrgence().size() != 0)
+        std::reverse(this->_parcoursUrgence.begin(), this->_parcoursUrgence.end());
+
 }
 
+void Locomotive::switchParcours(){
+    QList<int> tmpP = _parcours;
+    afficherMessage(QString("tm: %1").arg(tmpP.at(0)));
+    _parcours = _parcoursUrgence;
+    afficherMessage(QString("tm Par: %1").arg(_parcours.at(0)));
+
+    _parcoursUrgence = tmpP;
+    afficherMessage(QString("tm: %1").arg(_parcoursUrgence.at(0)));
+
+
+}
 /*
 void Locomotive::run(){
 

@@ -11,25 +11,24 @@ class ILocoHandler : public QThread {
 
 protected:
 
-    bool isFree;
-    bool sens = true;
-    QList<int> criticalSectionPoints {4, 6, 5, 34, 33, 28};
-    QList<int> criticalAig {3,20};
+    static bool isFree;
+     static bool sens;
+    QList<int> criticalSectionPoints = {4, 6, 5, 34, 33, 28};
+    QList<int> criticalAig= {3,20};
     int startCS = 6;
     int endCS = 33;
-    QSemaphore* mutmut;
-    QSemaphore* busypath;
+     static QSemaphore* mutmut;
+     static QSemaphore* busypath;
 
 public:
     Locomotive* locomotive /*= new Locomotive()*/ ;
 
 
-    ILocoHandler() {
-        mutmut = new QSemaphore(1);
-        busypath = new QSemaphore(1);
+    ILocoHandler(){
         locomotive = new Locomotive();
-        isFree = true;
     }
+
+
     virtual void setAiguillage(int numAig, int direction) = 0;
     virtual void criticalSectionStart() = 0;
     virtual void criticalSectionEnd() = 0;
@@ -39,8 +38,13 @@ public:
             std::reverse(criticalSectionPoints.begin(), criticalSectionPoints.end());
             std::reverse(criticalAig.begin(), criticalAig.end());
             this->locomotive->inverserSensParcours();
-            sens = !sens;
+            this->locomotive->inverserSens();
+            this->locomotive->afficherMessage(QString("SENS INVERSED"));
+
+            sens = !(sens);
         }
+        this->locomotive->afficherMessage(QString("SENS INVERSED ? "));
+
     }
 };
 #endif // ILOCOHANDLER_H

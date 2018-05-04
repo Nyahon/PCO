@@ -8,7 +8,10 @@
 #include <QList>
 
 //Creation d'une locomotive
-
+QSemaphore* ILocoHandler::mutmut = new QSemaphore(1);
+QSemaphore* ILocoHandler::busypath = new QSemaphore(1);
+bool ILocoHandler::isFree = true;
+bool ILocoHandler::sens = true;
 LocoHandler1 locoH;
 LocoHandler2 locoH2;
 //LocoHandler1 locoH2;
@@ -42,15 +45,17 @@ int cmain()
     QList<int> petitParcours;
     petitParcours << 9 << 8 << 6 << 5 << 34 << 33 << 36 << 35;
     QList<int> parcoursUrgence;
-    parcoursUrgence << 3 << 2 << 1 << 31 << 30;
+    parcoursUrgence << 3 << 2 << 1 << 31 << 30 << 29;
 
     //Initialisation LocoHandlers
 
 
     //Initialisation des aiguillages
     diriger_aiguillage(8,  TOUT_DROIT,       0);
+    diriger_aiguillage(3,  TOUT_DROIT,       0);
+    diriger_aiguillage(22, TOUT_DROIT,       0);
+
     diriger_aiguillage(4,  DEVIE,       0);
-    diriger_aiguillage(22,  DEVIE,       0);    //point critique
     /*MAGIC*/
     diriger_aiguillage(16,  DEVIE,       0);
     diriger_aiguillage(2,  DEVIE,       0);
@@ -74,8 +79,7 @@ int cmain()
     locoH.locomotive->fixerPosition(16,23);
     locoH.locomotive->allumerPhares();
     locoH.locomotive->setParcours(grandParcours);
-
-    //locoH.locomotive->setParcoursUrgence(parcoursUrgence);
+    locoH.locomotive->setParcoursUrgence(parcoursUrgence);
 
     locoH2.locomotive->fixerNumero(2);
     locoH2.locomotive->fixerVitesse(12);

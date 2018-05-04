@@ -4,6 +4,8 @@
 #include <QThread>
 #include <QSemaphore>
 
+
+
 void LocoHandler2::setAiguillage(int numAig, int direction){
     mutmut->acquire();
     diriger_aiguillage(numAig, direction, 0);
@@ -23,14 +25,15 @@ void LocoHandler2::criticalSectionStart(){
 }
 
 void LocoHandler2::criticalSectionEnd(){
-    setAiguillage(criticalAig.at(4), DEVIE);
+    setAiguillage(criticalAig.at(1), DEVIE);
     isFree = true;
     busypath->release();
 }
 
 void LocoHandler2::run(){
     this->locomotive->demarrer();
-
+while(true) {
+    for(int j =0;j <2;j++){
     for(int i = 0; i < this->locomotive->parcours().size(); ++i){
         attendre_contact(this->locomotive->parcours().at(i));
         this->locomotive->afficherMessage(QString("I've reached contact no. %1.").arg(this->locomotive->parcours().at(i)));
@@ -39,20 +42,28 @@ void LocoHandler2::run(){
                 this->locomotive->afficherMessage(QString("It's free!"));
                 criticalSectionStart();
           }else{
-                arreter_loco(this->locomotive->numero());
+               this->locomotive->arreter();
+
                 busypath->acquire();
-                this->locomotive->demarrer();
                 setAiguillage(criticalAig.at(0), DEVIE);
+
+                this->locomotive->demarrer();
             }
-        }else if(i == CS_EXIT){
+        }else if(this->locomotive->parcours().at(i) == CS_EXIT){
             criticalSectionEnd();
         }
     }
+    }
+    changeSens(!sens);
+
+
+}
 
 }
 
 
 void LocoHandler2::changeSens(bool newSens) {
+    //this->locomotive->afficherMessage(QString("HERE INVERSED"));
     ILocoHandler::changeSens(newSens);
     std::reverse(checkPoints.begin(), checkPoints.end());
 }
