@@ -7,6 +7,7 @@
 class ThreadPool
 {
 public:
+    ThreadPool();
     ThreadPool(int maxThreadCount);
     void start(Runnable* runnable);
 };
