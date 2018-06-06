@@ -1,3 +1,6 @@
+#pragma once
+
+
 #include <QThread>
 #include "response.h"
 #include "abstractbuffer.h"

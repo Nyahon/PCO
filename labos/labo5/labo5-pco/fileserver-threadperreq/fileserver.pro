@@ -16,7 +16,7 @@ SOURCES += \
     requestdispatcherthread.cpp \
     requestworker.cpp \
     threadpool.cpp \
-    runnable.cpp
+    tpworker.cpp
 
 HEADERS += \
     fileserver.h \
@@ -30,7 +30,9 @@ HEADERS += \
     requestdispatcherthread.h \
     requestworker.h \
     threadpool.h \
-    runnable.h
+    runnable.h \
+    runnableimpl.h \
+    tpworker.h
 
 EXAMPLE_FILES += fileclient.html
 

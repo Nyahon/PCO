@@ -23,8 +23,11 @@ void requestDispatcherThread::run()
         Request req = requests->get();   //  Récupération des requêtes dans le tampon
          // Création d'un worker qui va mettre la requête dans le buffer de réponses
         requestWorker* rw = new requestWorker(req, responses);
-        procList.push_back(rw);
-        rw->start();
+        RunnableImpl runnable = new RunnableImpl(rw);
+        //procList.push_back(rw);
+        //rw->start();
+
+
         //responseReady(resp); // send signal
     }
 }

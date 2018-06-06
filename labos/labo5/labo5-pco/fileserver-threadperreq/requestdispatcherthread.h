@@ -6,6 +6,7 @@
 #include "abstractbuffer.h"
 #include "request.h"
 #include "requestworker.h"
+#include "runnableimpl.h"
 #include <QList>
 
 class requestDispatcherThread : public QThread
