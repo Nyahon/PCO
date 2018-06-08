@@ -6,6 +6,7 @@ void requestDispatcherThread::run()
 
     while(true) {
 
+        //suppress loop for running threads with no charge
         while(!procList.empty() ){
             qDebug() << "procList not empty";
 
@@ -23,8 +24,9 @@ void requestDispatcherThread::run()
         Request req = requests->get();   //  Récupération des requêtes dans le tampon
          // Création d'un worker qui va mettre la requête dans le buffer de réponses
         requestWorker* rw = new requestWorker(req, responses);
-        RunnableImpl runnable = new RunnableImpl(rw);
-        //procList.push_back(rw);
+      //  RunnableImpl* runnable = new RunnableImpl(rw);
+
+        procList.push_back(rw);
         //rw->start();
 
 

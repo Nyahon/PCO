@@ -11,5 +11,11 @@ void requestWorker::run(){
     // push the response to the response buffer
     buff->put(response);
     
-
+    done = true;
 }
+
+bool requestWorker::isFinished(){
+    return done;
+}
+
+requestWorker::~requestWorker(){}

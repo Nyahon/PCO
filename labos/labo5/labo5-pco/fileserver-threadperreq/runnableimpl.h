@@ -11,7 +11,7 @@ class RunnableImpl : public Runnable, QThread {
 public:
     RunnableImpl(requestWorker* worker) : worker(worker){}
     void run(){
-        worker->start();
+      //  worker->start();
     }
 private:
     requestWorker* worker;

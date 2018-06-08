@@ -1,7 +1,6 @@
 #ifndef RUNNABLE_H
 #define RUNNABLE_H
 #include <QString>
-#include <requestworker.h>
 
 class Runnable
 {

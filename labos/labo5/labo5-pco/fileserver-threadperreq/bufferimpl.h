@@ -1,6 +1,6 @@
 #ifndef BUFFERIMPL_H
 #define BUFFERIMPL_H
-#include<QSemaphore>
+#include <QSemaphore>
 #include "abstractbuffer.h"
 #include <QDebug>
 #include "iostream"
@@ -97,8 +97,27 @@ public:
         return bufferSize;
     }
 
-    virtual ~bufferImpl() {}
+    virtual ~bufferImpl() {
+        while(nbElements>0){
+                    this->get();
+                }
+        delete elements;
+    }
 
+
+    bool tryPut(T item){
+
+          mutex.acquire();
+          if(nbElements == bufferSize){
+              mutex.release();
+              return false;
+
+          }else{
+              mutex.release();
+              put(item);
+          }
+          return true;
+  }
 };
 
 
